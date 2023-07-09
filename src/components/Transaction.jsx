@@ -32,9 +32,12 @@ export default function Transaction({ transactionInfo, token, getUserInfo }) {
                 <span>{dayjs(date).format("DD/MM")}</span>
                 <strong  onClick={() => navigate(`/editar-registro/${type}/${id}`)} data-test="registry-name">{description}</strong>
             </div>
-            <Value color={type === "entrada"? "positivo":"negativo"} data-test="registry-amount">
-                {Math.abs(value).toFixed(2).replace('.', ',')} <span onClick={deleteTransaction} data-test="registry-delete">x</span>
-            </Value>
+            <div>
+                <Value color={type === "entrada"? "positivo":"negativo"} data-test="registry-amount">
+                    {Math.abs(value).toFixed(2).replace('.', ',')}
+                </Value>
+                <span onClick={deleteTransaction} data-test="registry-delete">x</span>
+            </div>
         </ListItemContainer>
     )
 }
@@ -43,12 +46,6 @@ const Value = styled.div`
     font-size: 16px;
     text-align: right;
     color: ${(props) => (props.color === "positivo" ? "#00ff00" : "#ff0000")};
-
-    span {
-        margin-right: 0 !important;
-        margin-left: 15px;
-        cursor: pointer;
-    }
 `;
 const ListItemContainer = styled.li`
     display: flex;
@@ -60,5 +57,13 @@ const ListItemContainer = styled.li`
     div span {
         color: #c6c6c6;
         margin-right: 10px;
+    }
+    div span:nth-child(2) {
+        margin-left: 15px;
+        margin-right: 0;
+        cursor: pointer;
+    }
+    div {
+        display: flex;
     }
 `;
