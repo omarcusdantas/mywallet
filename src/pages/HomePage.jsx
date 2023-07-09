@@ -3,10 +3,9 @@ import { BiExit } from "react-icons/bi";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
-import { useContext} from "react";
+import { useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
 import Transaction from "../components/Transaction";
 
 export default function HomePage() {
@@ -39,7 +38,7 @@ export default function HomePage() {
                 headers: { Authorization: `Bearer ${userData.token}` },
             })
             .then((response) => {
-                console.log(response.data)
+                response.data.transactions.reverse();
                 setUserInfo(response.data);
                 if (response.data.balance>=0) {
                     setBalanceState("positivo");
@@ -88,13 +87,13 @@ export default function HomePage() {
             </TransactionsContainer>
 
             <ButtonsContainer>
-                <button>
+                <button onClick={() => navigate("/nova-transacao/entrada")}>
                     <AiOutlinePlusCircle />
                     <p>
                         Nova <br /> entrada
                     </p>
                 </button>
-                <button>
+                <button onClick={() => navigate("/nova-transacao/saida")}>
                     <AiOutlineMinusCircle />
                     <p>
                         Nova <br />
@@ -129,6 +128,7 @@ const TransactionsContainer = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: scroll;
     article {
         display: flex;
         justify-content: space-between;
