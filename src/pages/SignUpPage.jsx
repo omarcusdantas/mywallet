@@ -55,17 +55,18 @@ export default function SignUpPage() {
         <SingUpContainer>
             <form onSubmit={handleForm}>
                 <MyWalletLogo />
-                <input ref={nameInputRef} placeholder="Nome" type="text" required/>
-                <input ref={emailInputRef} placeholder="E-mail" type="email" required/>
-                <input ref={passwordInputRef} placeholder="Senha" type="password" autoComplete="new-password" required/>
+                <input ref={nameInputRef} placeholder="Nome" type="text" required data-test="name"/>
+                <input ref={emailInputRef} placeholder="E-mail" type="email" required data-test="email"/>
+                <input ref={passwordInputRef} placeholder="Senha" type="password" autoComplete="new-password" required data-test="password"/>
                 <input
                     ref={confirmPasswordInputRef}
                     placeholder="Confirme a senha"
                     type="password"
                     autoComplete="new-password"
                     required
+                    data-test="conf-password"
                 />
-                <button>Cadastrar</button>
+                <button data-test="sign-up-submit">Cadastrar</button>
             </form>
 
             <Link to={"/"}>Já tem uma conta? Entre agora!</Link>

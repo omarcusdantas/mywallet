@@ -92,6 +92,7 @@ export default function TransactionsPage() {
                     required
                     value={valueInput}
                     onChange={(event) => setValueInput(event.target.value)}
+                    data-test="registry-amount-input"
                 />
                 <input
                     placeholder="Descrição"
@@ -99,8 +100,9 @@ export default function TransactionsPage() {
                     required
                     value={descriptionInput}
                     onChange={(event) => setDescriptionInput(event.target.value)}
+                    data-test="registry-name-input"
                 />
-                <button>{`Atualizar ${tipo}`}</button>
+                <button data-test="registry-save">{`Atualizar ${tipo}`}</button>
             </form>
         </TransactionsContainer>
     );

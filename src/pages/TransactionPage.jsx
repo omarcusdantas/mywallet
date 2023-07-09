@@ -58,9 +58,9 @@ export default function TransactionsPage() {
         <TransactionsContainer>
             <h1>Nova TRANSAÇÃO</h1>
             <form onSubmit={handleForm}>
-                <input placeholder="Valor" type="number" min="0" step="0.01" required ref={valueInputRef}/>
-                <input placeholder="Descrição" type="text" required ref={descriptionInputRef}/>
-                <button>Salvar TRANSAÇÃO</button>
+                <input placeholder="Valor" type="number" min="0" step="0.01" required ref={valueInputRef} data-test="registry-amount-input"/>
+                <input placeholder="Descrição" type="text" required ref={descriptionInputRef} data-test="registry-name-input"/>
+                <button data-test="registry-save">Salvar TRANSAÇÃO</button>
             </form>
         </TransactionsContainer>
     );

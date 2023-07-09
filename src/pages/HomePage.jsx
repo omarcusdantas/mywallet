@@ -40,7 +40,6 @@ export default function HomePage() {
             .then((response) => {
                 response.data.transactions.reverse();
                 setUserInfo(response.data);
-                console.log(response.data);
                 if (response.data.balance>=0) {
                     setBalanceState("positivo");
                 } else {
@@ -67,8 +66,8 @@ export default function HomePage() {
     return (
         <HomeContainer>
             <Header>
-                <h1>{`Olá, ${userInfo.name}`}</h1>
-                <BiExit onClick={signout}/>
+                <h1 data-test="user-name">{`Olá, ${userInfo.name}`}</h1>
+                <BiExit onClick={signout} data-test="logout"/>
             </Header>
 
             <TransactionsContainer>
@@ -85,18 +84,18 @@ export default function HomePage() {
 
                 <article>
                     <strong>Saldo</strong>
-                    <Value color={balanceState}>{Math.abs(userInfo.balance).toFixed(2).replace('.', ',')}</Value>
+                    <Value color={balanceState} data-test="total-amount">{Math.abs(userInfo.balance).toFixed(2).replace('.', ',')}</Value>
                 </article>
             </TransactionsContainer>
 
             <ButtonsContainer>
-                <button onClick={() => navigate("/nova-transacao/entrada")}>
+                <button onClick={() => navigate("/nova-transacao/entrada")} data-test="new-income">
                     <AiOutlinePlusCircle />
                     <p>
                         Nova <br /> entrada
                     </p>
                 </button>
-                <button onClick={() => navigate("/nova-transacao/saida")}>
+                <button onClick={() => navigate("/nova-transacao/saida")} data-test="new-expense">
                     <AiOutlineMinusCircle />
                     <p>
                         Nova <br />

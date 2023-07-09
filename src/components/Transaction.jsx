@@ -30,10 +30,10 @@ export default function Transaction({ transactionInfo, token, getUserInfo }) {
         <ListItemContainer>
             <div>
                 <span>{dayjs(date).format("DD/MM")}</span>
-                <strong  onClick={() => navigate(`/editar-registro/${type}/${id}`)}>{description}</strong>
+                <strong  onClick={() => navigate(`/editar-registro/${type}/${id}`)} data-test="registry-name">{description}</strong>
             </div>
-            <Value color={type === "entrada"? "positivo":"negativo"}>
-                {Math.abs(value).toFixed(2).replace('.', ',')} <span onClick={deleteTransaction}>x</span>
+            <Value color={type === "entrada"? "positivo":"negativo"} data-test="registry-amount">
+                {Math.abs(value).toFixed(2).replace('.', ',')} <span onClick={deleteTransaction} data-test="registry-delete">x</span>
             </Value>
         </ListItemContainer>
     )
