@@ -1,8 +1,28 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
+import axios from "axios";
 
-export default function Transaction({ transactionInfo }) {
-    const {date, description, type, value} = transactionInfo
+export default function Transaction({ transactionInfo, token, getUserInfo }) {
+    const {date, description, type, value, id} = transactionInfo;
+
+    function deleteTransaction() {
+        if(confirm("Delete transaction?")) {
+            axios
+            .delete(`${import.meta.env.VITE_API_URL}/deleta-transacao/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then(() => {
+                getUserInfo();
+            })
+            .catch((error) => {
+                console.log(error);
+                if (error.response) {
+                    return alert(`${error.response.data}. Error ${error.response.status}: ${error.response.statusText}`);
+                }
+                alert(error.message);                
+            });
+        }
+    }
 
     return (
         <ListItemContainer>
@@ -10,7 +30,9 @@ export default function Transaction({ transactionInfo }) {
                 <span>{dayjs(date).format("DD/MM")}</span>
                 <strong>{description}</strong>
             </div>
-            <Value color={type === "entrada"? "positivo":"negativo"}>{Math.abs(value).toFixed(2).replace('.', ',')}</Value>
+            <Value color={type === "entrada"? "positivo":"negativo"}>
+                {Math.abs(value).toFixed(2).replace('.', ',')} <span onClick={deleteTransaction}>x</span>
+            </Value>
         </ListItemContainer>
     )
 }
@@ -19,6 +41,12 @@ const Value = styled.div`
     font-size: 16px;
     text-align: right;
     color: ${(props) => (props.color === "positivo" ? "#00ff00" : "#ff0000")};
+
+    span {
+        margin-right: 0 !important;
+        margin-left: 15px;
+        cursor: pointer;
+    }
 `;
 const ListItemContainer = styled.li`
     display: flex;

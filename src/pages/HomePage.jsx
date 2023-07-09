@@ -76,6 +76,8 @@ export default function HomePage() {
                         <Transaction
                             key={transaction.id}
                             transactionInfo={transaction}
+                            token={userData.token}
+                            getUserInfo={getUserInfo}
                         />
                     )}
                 </ul>
