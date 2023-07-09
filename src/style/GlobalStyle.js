@@ -6,6 +6,11 @@ const GlobalStyle = createGlobalStyle`
         font-style: normal;
         font-weight: 400;
     }
+    html, body {
+        max-height: 100vh;
+        overflow: hidden;
+        max-width: 100vw;
+    }
     button {
         outline: none;
         border: none;

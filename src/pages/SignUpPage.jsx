@@ -19,7 +19,10 @@ export default function SignUpPage() {
             .then(() => navigate("/"))
             .catch((error) => {
                 console.log(error);
-                alert(`${error.response.data}. ${error}: ${error.response.statusText}`);
+                if (error.response) {
+                    return alert(`${error.response.data}. Error ${error.response.status}: ${error.response.statusText}`);
+                }
+                return alert(error.message);                
             });
     }
 

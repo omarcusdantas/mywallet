@@ -13,6 +13,26 @@ export default function SignInPage() {
     const { setUserData } = useContext(UserContext);
     const navigate = useNavigate();
 
+    function signin(data) {
+        axios
+            .post(import.meta.env.VITE_API_URL, data)
+            .then((response) => {
+                const newUserData = {
+                    token: response.data,
+                };
+                localStorage.setItem("user", JSON.stringify(newUserData));
+                setUserData(newUserData);
+                navigate("/home");
+            })
+            .catch((error) => {
+                console.log(error);
+                if (error.response) {
+                    return alert(`${error.response.data}. Error ${error.response.status}: ${error.response.statusText}`);
+                }
+                return alert(error.message);                
+            });
+    }
+
     function handleForm(event) {
         event.preventDefault();
 
@@ -21,19 +41,17 @@ export default function SignInPage() {
             password: passwordInputRef.current.value,
         }
 
-        axios
-            .post(import.meta.env.VITE_API_URL, data)
-            .then((response) => {
-                const newUserData = {
-                    token: response.data,
-                };
-                setUserData(newUserData);
-                navigate("/home");
-            })
-            .catch((error) => {
-                console.log(error);
-                alert(`${error.response.data}. ${error}: ${error.response.statusText}`);
-            });
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (data.password.length < 3) {
+            return alert("Password must have at least 3 characters");
+        }
+
+        if (!emailPattern.test(data.email)) {
+            return alert("Invalid email address");
+        }
+
+        signin(data);
     }
 
     useEffect(() => {
@@ -50,8 +68,8 @@ export default function SignInPage() {
         <SingInContainer>
             <form onSubmit={handleForm}>
                 <MyWalletLogo />
-                <input placeholder="E-mail" type="email" ref={emailInputRef}/>
-                <input placeholder="Senha" type="password" autoComplete="new-password" ref={passwordInputRef}/>
+                <input placeholder="E-mail" type="email" ref={emailInputRef} required/>
+                <input placeholder="Senha" type="password" autoComplete="new-password" ref={passwordInputRef} required/>
                 <button>Entrar</button>
             </form>
 
