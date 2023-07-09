@@ -40,6 +40,7 @@ export default function HomePage() {
             .then((response) => {
                 response.data.transactions.reverse();
                 setUserInfo(response.data);
+                console.log(response.data);
                 if (response.data.balance>=0) {
                     setBalanceState("positivo");
                 } else {

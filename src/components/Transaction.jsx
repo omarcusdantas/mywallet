@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Transaction({ transactionInfo, token, getUserInfo }) {
     const {date, description, type, value, id} = transactionInfo;
+    const navigate = useNavigate();
 
     function deleteTransaction() {
         if(confirm("Delete transaction?")) {
@@ -28,7 +30,7 @@ export default function Transaction({ transactionInfo, token, getUserInfo }) {
         <ListItemContainer>
             <div>
                 <span>{dayjs(date).format("DD/MM")}</span>
-                <strong>{description}</strong>
+                <strong  onClick={() => navigate(`/editar-registro/${type}/${id}`)}>{description}</strong>
             </div>
             <Value color={type === "entrada"? "positivo":"negativo"}>
                 {Math.abs(value).toFixed(2).replace('.', ',')} <span onClick={deleteTransaction}>x</span>
