@@ -72,9 +72,9 @@ export default function HomePage() {
 
             <TransactionsContainer>
                 <ul>
-                    {userInfo.transactions.length > 0 && userInfo.transactions.map((transaction) => 
+                    {userInfo.transactions.length > 0 && userInfo.transactions.map((transaction, index) => 
                         <Transaction
-                            key={transaction.id}
+                            key={index}
                             transactionInfo={transaction}
                             token={userData.token}
                             getUserInfo={getUserInfo}
